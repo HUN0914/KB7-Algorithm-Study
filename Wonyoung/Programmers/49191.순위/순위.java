@@ -13,7 +13,6 @@ class Solution {
         
         int answer = 0;
         for(int i = 1; i <= n; i++){
-            int w = 0, l = 0;
             checked = new boolean[n+1];
             List<Integer> win = winner.get(i);
             List<Integer> lose = loser.get(i);
