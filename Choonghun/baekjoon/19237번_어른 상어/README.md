@@ -1,4 +1,4 @@
-# 19237번: 어른 상어 - <img src="https://static.solved.ac/tier_small/13.svg" style="height:20px" /> Gold III
+# 19237번: 어른 상어 - <img src="https://static.solved.ac/tier_small/15.svg" style="height:20px" /> Gold I
 
 <!-- performance -->
 
