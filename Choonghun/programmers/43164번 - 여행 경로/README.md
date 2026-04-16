@@ -52,3 +52,7 @@
       </table>
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
+
+## 💡 풀이 핵심
+
+그래프 문자열 순으로 정렬하고 DFS
