@@ -2,10 +2,13 @@
 
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/72413) 
 
-
 ### 구분
 
 코딩테스트 연습 > 2021 KAKAO BLIND RECRUITMENT
+
+### 제출 일자
+
+2026년 04월 19일 18:33:08
 
 ### 채점결과
 
