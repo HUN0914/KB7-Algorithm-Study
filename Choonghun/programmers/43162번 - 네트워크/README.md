@@ -1,4 +1,4 @@
-# [level 3] 합승 택시 요금 - 43162번
+# [level 3] 네트워크 - 43162번
 
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43162) 
 
