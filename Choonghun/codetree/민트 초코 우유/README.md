@@ -1,4 +1,4 @@
-# ⚔️ 왕실의 기사 대결
+# 🍃🍫🥛 민트 초코 우유
 
 ## 📌 문제 정보
 
@@ -12,7 +12,7 @@
 
 ## 🔗 문제 링크
 
-- [왕실의 기사 대결](https://www.codetree.ai/ko/frequent-problems/samsung-sw/problems/mint-choco-milk/description)
+- [민트 초코 우유](https://www.codetree.ai/ko/frequent-problems/samsung-sw/problems/mint-choco-milk/description)
 
 ## 📝 문제 설명
 
@@ -128,7 +128,8 @@ CMMM
 
 ## 💡 풀이 핵심
 
-지문 길이 진짜 실화냐<br/>
+<strong>지문 길이 진짜 실화냐</strong><br/>
+
 신앙 음식 조합 합치는건 이진수로 매핑+바인딩하는 아이디어를 썼고,<br/>
 그룹 영역 찾는건 매일 오후 BFS나 DFS로 진행하되,<br/>
 전파를 진행하는 순서를 따라야 하므로 단일, 이중, 삼중 조합별 대표를 저장할 이차원 배열을 선언한뒤<br/>
