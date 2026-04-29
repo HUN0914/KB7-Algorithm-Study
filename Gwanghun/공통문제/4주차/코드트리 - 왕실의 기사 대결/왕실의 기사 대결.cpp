@@ -111,13 +111,6 @@ void game(int i, int d){ //i번 기사한테 방향 d로 '한 칸' 이동
         knights[id].r+=dy[d];
         knights[id].c+=dx[d];
     }
-
-    for(int y=1; y<=L; y++){
-        for(int x=1; x<=L; x++){
-            locationMap[y][x]=0;
-        }
-    }
-
     for(auto id : moved){
         if(id!=i) minusKnight.push_back(id);
     }
