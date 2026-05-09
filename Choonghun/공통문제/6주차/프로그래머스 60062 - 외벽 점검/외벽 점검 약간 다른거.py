@@ -1,4 +1,5 @@
 flag = 0 # 플래그
+answer = 10e9 # 정답
 def solution(n, weak, dist):
     """
         n (1 <= n <= 200) : 둘레
@@ -25,10 +26,10 @@ def solution(n, weak, dist):
     def backtrack(ind, dis, lim_idx, num):
         global flag
         # print(check, sum(check), w, lim_idx)
-        if sum(f_check) > num: # 현재 선택된 인원이 제한보다 크면 종료
+        if num > answer: # 현재 선택된 인원이 지금까지 구한 최선의 결과보다 크면 종료
             return
-        if sum(check) == w: # 모든 구역을 탐색했다면 조합을 발견한 것이므로 flag를 1로 변경
-            flag = 1
+        if sum(check) == w: # 모든 구역을 탐색했다면 조합을 발견한 것이므로 flag를 현재 선택된 인원 수로 변경
+            flag = num
             return
         for next, p in graph[ind]: # 현재 위치에 대해서
             if not check[next]: # 다음 또는 이전 위치가 방문하지 않은 곳이라면
@@ -41,25 +42,23 @@ def solution(n, weak, dist):
                     for i in range(f): 
                         if not f_check[i]: # 아직 선택되지 않은 인원에 대하여
                             f_check[i] = 1 # 선택 처리
-                            backtrack(next, 0, i, num) # 새로운 인원 투입하여 신규 백트래킹
+                            backtrack(next, 0, i, num+1) # 새로운 인원 투입하여 신규 백트래킹
                             f_check[i] = 0
                     check[next] = 0
     
     
     def findCollections(): # 조합 찾는 메서드
-        answer = -1 
-        for num in range(1,f+1):
-            for i in range(w):
-                check[i] = 1
-                for j in range(f):
-                    f_check[j] = 1
-                    backtrack(i, 0, j, num) 
-                    f_check[j] = 0
-                    if flag: # 발견했다면 해당 인원수를 그대로 반환
-                        answer = num
-                        return answer
-                check[i] = 0
+        global answer
+        for i in range(w):
+            check[i] = 1
+            for j in range(f):
+                f_check[j] = 1
+                backtrack(i, 0, j, 1) 
+                f_check[j] = 0
+                if flag: 
+                    answer = min(flag, answer) # 갱신
+            check[i] = 0
                 
-        return answer # 발견 못했다면 초기값 -1이 유지되므로 -1 반환
+        return answer if answer < 10e9 else -1 # 발견 못했다면 -1 반환
     
     return findCollections()
