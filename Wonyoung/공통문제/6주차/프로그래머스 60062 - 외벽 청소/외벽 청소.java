@@ -10,8 +10,7 @@ class Solution {
         m = weak.length;
         k = dist.length;
         dirt = weak;
-        
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)-> b-a);
+
         answer = INF;
         boolean[] visited = new boolean[k];
         permutation(dist, visited, 0, new int[k]);
