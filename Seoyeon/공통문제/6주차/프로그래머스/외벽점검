@@ -1,0 +1,50 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(int n, vector<int> weak, vector<int> dist) {
+    int answer = dist.size() + 1; // 처음 답을 불가능한 큰 값으로 잡기
+    int weakSize = weak.size();
+    
+    for(int i = 0; i < weakSize; i++){
+        // 원형 외벽을 일자로 펴기
+        weak.push_back(weak[i] + n);
+    }
+    
+    // 나중에 사용할 함수(next_permutation)를 위해 정렬
+    sort(dist.begin(), dist.end());
+    
+    do{
+        
+        // 어느 취약점부터 점검을 시작할지 확인
+        for(int start = 0; start < weakSize; start++){
+            // 원형이므로 어디에서 시작하느냐에 따라 필요한 친구 수 달라짐
+            int friendCount = 1;
+            int possibleRange = weak[start] + dist[friendCount - 1];
+            
+            // start부터 weakSize개 취약점 검사
+            for(int idx = start; idx < start + weakSize; idx++){
+                // 현재 친구가 점검못하는 위치라면 다음친구 투입
+                if(weak[idx] > possibleRange){
+                    friendCount++;
+                    
+                    if(friendCount > dist.size()) {
+                        break;
+                    }
+                    
+                    possibleRange = weak[idx] + dist[friendCount - 1];
+                }
+            }
+            answer = min(answer, friendCount);
+        }
+        // 친구를 보내는 순서를 전부 확인하는 반복문(순열)
+    } while(next_permutation(dist.begin(), dist.end())); // ->자동으로 순열처리 해줌^^~~
+    
+    if(answer > dist.size()){
+        return -1;
+    }
+    
+    return answer;
+}
