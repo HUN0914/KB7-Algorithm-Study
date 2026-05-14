@@ -1,0 +1,51 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int solution(int n, vector<int> weak, vector<int> dist) {
+    int answer = dist.size() + 1; // 처음 답을 불가능한 큰 값으로 잡기
+    int weakSize = weak.size();   // 뒤에서 weak를 확장할 예정이라 원래 크기를 따로 저장해야 함
+    
+    for(int i = 0; i < weakSize; i++){
+        // 원형 외벽을 일자로 펴기
+        weak.push_back(weak[i] + n);
+    }
+    
+    // 나중에 사용할 함수(next_permutation)를 위해 정렬
+    sort(dist.begin(), dist.end());
+    
+    do{
+        
+        // 어느 취약점부터 점검을 시작할지 확인
+        for(int start = 0; start < weakSize; start++){
+            // 원형이므로 어디에서 시작하느냐에 따라 필요한 친구 수 달라짐
+            int friendCount = 1; // 첫 번째 친구부터 투입
+            int possibleRange = weak[start] + dist[friendCount - 1]; // 현재 친구가 점검할 수 있는 가장 먼 위치
+            
+            // start부터 원래 취약점 개수만큼 확인
+            for(int idx = start; idx < start + weakSize; idx++){
+                // 현재 친구가 점검못하는 위치라면 다음친구 투입
+                if(weak[idx] > possibleRange){
+                    friendCount++;
+                    // 투입할 친구가 더 이상 없으면 실패
+                    if(friendCount > dist.size()) {
+                        break;
+                    }
+                    // 새 친구는 현재 점검하지 못한 취약점에서 출발
+                    // 그 친구가 갈 수 있는 끝 지점을 다시 계산
+                    possibleRange = weak[idx] + dist[friendCount - 1];
+                }
+            }
+            answer = min(answer, friendCount);
+        }
+        // 친구를 보내는 순서를 전부 확인하는 반복문(순열)
+    } while(next_permutation(dist.begin(), dist.end())); // ->자동으로 순열처리 해줌^^~~
+    
+    if(answer > dist.size()){
+        return -1;
+    }
+    
+    return answer;
+}
