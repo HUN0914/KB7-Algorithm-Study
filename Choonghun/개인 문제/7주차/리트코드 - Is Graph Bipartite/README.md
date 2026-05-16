@@ -1,4 +1,4 @@
-# [Medium] Mine Sweeper
+# [Medium] Is Graph Bipartite?
 
 [문제 링크](https://leetcode.com/problems/is-graph-bipartite/) 
 
