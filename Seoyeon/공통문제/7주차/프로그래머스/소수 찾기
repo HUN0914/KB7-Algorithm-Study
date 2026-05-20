@@ -1,0 +1,45 @@
+#include <string>
+#include <vector>
+#include <set>
+
+using namespace std;
+
+set<int> s;
+
+bool isPrime(int n){
+    if(n < 2) return false;
+    for(int i = 2; i*i <= n; i++){
+        if(n % i == 0) return false;
+    }
+    return true;
+}
+
+void dfs(string current, string numbers, vector<bool> &visited){
+    // 숫자가 만들어졌다면
+    if(current != ""){
+        int num = stoi(current);
+        
+        // 소수면 저장
+        if(isPrime(num)){
+            s.insert(num);
+        }
+    }
+    
+    for(int i = 0; i < numbers.size(); i++){
+        if(visited[i]) continue;
+        
+        visited[i] = true;
+        
+        dfs(current + numbers[i], numbers, visited);
+        
+        visited[i] = false;
+    }
+}
+
+int solution(string numbers) {
+    vector<bool> visited(numbers.size(), false);
+    
+    dfs("", numbers, visited);
+    
+    return s.size();
+}
