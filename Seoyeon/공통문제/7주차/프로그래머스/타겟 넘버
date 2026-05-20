@@ -1,0 +1,28 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int answer = 0;
+
+void dfs(vector<int> &numbers, int target, int idx, int sum){
+    // 모든 숫자를 다 사용했으면
+    if(idx == numbers.size()){
+        // target 만들었는지 확인
+        if(sum == target){
+            answer++;
+        }
+        return;
+    }
+    
+    // 현재 숫자 더하기
+    dfs(numbers, target, idx+1, sum + numbers[idx]);
+    
+    // 현재 숫자 빼기
+    dfs(numbers, target, idx+1, sum - numbers[idx]);
+}
+
+int solution(vector<int> numbers, int target) {
+    dfs(numbers, target, 0, 0);
+    return answer;
+}
