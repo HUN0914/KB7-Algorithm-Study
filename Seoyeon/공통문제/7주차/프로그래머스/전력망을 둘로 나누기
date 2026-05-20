@@ -1,0 +1,57 @@
+#include <string>
+#include <vector>
+#include <math.h>
+
+using namespace std;
+
+// 각 노드와 연결된 노드들을 저장하는 배열
+vector<int> graph[101]; // vector<int>가 101개
+bool visited[101];
+
+int dfs(int node){
+    visited[node] = true;
+    
+    int count = 1;
+    
+    for(int next : graph[node]){
+        
+        if(!visited[next]){
+            count += dfs(next);
+        }
+    }
+    return count;
+}
+
+int solution(int n, vector<vector<int>> wires) {
+    int answer = 100;
+    
+    // 전선 하나씩 끊어보기
+    for(int i = 0; i < wires.size(); i++){
+        // 그래프 초기화
+        for(int j = 1; j <= n; j++){
+            graph[j].clear();
+            visited[j] = false;
+        }
+        
+        for(int j = 0; j < wires.size(); j++){
+            // i번째 전선 제외하고 연결
+            if(i == j) continue;
+            
+            int a = wires[j][0];
+            int b = wires[j][1];
+            
+            graph[a].push_back(b);
+            graph[b].push_back(a);
+        }
+        
+        // 한쪽 네트워크 크기 계산
+        int count = dfs(1);
+        
+        // 차이 계산
+        int diff = abs(count - (n - count));
+        
+        answer = min(answer, diff);
+    }
+    
+    return answer;
+}
