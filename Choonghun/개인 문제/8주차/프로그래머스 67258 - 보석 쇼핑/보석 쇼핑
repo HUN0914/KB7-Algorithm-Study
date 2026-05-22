@@ -1,0 +1,32 @@
+def solution(gems):
+    n = len(gems)
+    gemIdx = {}
+    idx = 0
+    for t in gems:
+        if t not in gemIdx:
+            gemIdx[t] = 0
+            idx += 1
+    answer = [1, n]
+    l,r = 0,1
+    gemIdx[gems[l]] += 1 
+    gemCheck = 1
+    while l < r:
+        if gemCheck == idx:
+            if answer[1] - answer[0] + 1 > r-l:
+                answer[0], answer[1] = l+1, r
+            if answer[1] - answer[0] + 1 == idx:
+                break
+            gemIdx[gems[l]] -= 1
+            if not gemIdx[gems[l]]:
+                gemCheck -= 1
+            l += 1
+        else:
+            if r < n:
+                if not gemIdx[gems[r]]:
+                    gemCheck += 1
+                gemIdx[gems[r]] += 1
+                r += 1
+            else:
+                break
+    
+    return answer
