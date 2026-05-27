@@ -1,0 +1,96 @@
+#include <string>
+#include <vector>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+const int INF = 1e9;
+
+vector<int> solution(int n, vector<vector<int>> paths,
+                     vector<int> gates,
+                     vector<int> summits) {
+
+    vector<vector<pair<int, int>>> graph(n + 1);
+
+    for(auto p : paths){
+        int a = p[0];
+        int b = p[1];
+        int w = p[2];
+
+        graph[a].push_back({b, w});
+        graph[b].push_back({a, w});
+    }
+
+    vector<bool> isSummit(n + 1, false);
+
+    for(int s : summits){
+        isSummit[s] = true;
+    }
+
+    vector<int> dist(n + 1, INF);
+
+    // (intensity, node)
+    // 우선순위 큐: 우선순위가 높은 값이 먼저 나오는 큐
+
+    // pair<int,int> : {비용, 노드번호}
+    // greater<> : 작은 비용이 먼저 나오게 함 (min heap)
+
+    priority_queue<
+        pair<int, int>,
+        vector<pair<int, int>>,
+        greater<pair<int, int>>
+    > pq;
+
+    // 모든 출입구를 시작점으로
+    for(int g : gates){
+        dist[g] = 0;
+        pq.push({0, g});
+    }
+
+    while(!pq.empty()){
+
+        int curIntensity = pq.top().first;
+        int cur = pq.top().second;
+        pq.pop();
+
+        // 이미 더 좋은 경로가 있으면 스킵
+        if(curIntensity > dist[cur]) continue;
+
+        // 산봉우리는 종료점
+        if(isSummit[cur]) continue;
+
+        for(auto& nextInfo : graph[cur]){
+
+            int next = nextInfo.first;
+            int weight = nextInfo.second;
+
+            // 경로의 intensity =
+            // 지금까지 지나온 간선 최대값
+            int nextIntensity = max(curIntensity, weight);
+
+            if(nextIntensity < dist[next]){
+
+                dist[next] = nextIntensity;
+                pq.push({nextIntensity, next});
+            }
+        }
+    }
+
+    // 번호 작은 산봉우리 우선
+    sort(summits.begin(), summits.end());
+
+    int bestSummit = 0;
+    int bestIntensity = INF;
+
+    for(int s : summits){
+
+        if(dist[s] < bestIntensity){
+
+            bestIntensity = dist[s];
+            bestSummit = s;
+        }
+    }
+
+    return {bestSummit, bestIntensity};
+}
