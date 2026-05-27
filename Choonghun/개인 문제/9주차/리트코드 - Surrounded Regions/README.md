@@ -1,6 +1,6 @@
 # [Medium] Surrounded Regions
 
-[문제 링크](https://leetcode.com/problems/surrounded-regions//) 
+[문제 링크](https://leetcode.com/problems/surrounded-regions/) 
 
 
 ### 구분
