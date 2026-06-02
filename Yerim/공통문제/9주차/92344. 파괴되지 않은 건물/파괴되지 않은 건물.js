@@ -5,7 +5,6 @@ function solution(board, skill) {
     // skill 돌면서 공격 회복 저장
     const graph = Array.from({ length: N + 1 }, () => Array(M + 1).fill(0));
     
-    // console.log(graph);
     for (const [type, r1, c1, r2, c2, degree] of skill) {
         const value = type === 1 ? -degree : degree;
         
@@ -14,11 +13,7 @@ function solution(board, skill) {
         graph[r1][c2 + 1] -= value;
         graph[r2 + 1][c1] -= value;
         graph[r2 + 1][c2 + 1] += value;
-        
-        // console.log(graph);
     }
-    
-    
     
     // 최종 누적합 계산
     for (let row = 0; row <= N; row++) {
