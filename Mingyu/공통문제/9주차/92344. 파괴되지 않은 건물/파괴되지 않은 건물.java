@@ -11,7 +11,6 @@ class Solution {
             int c1 = s[2];
             int r2 = s[3];
             int c2 = s[4];
-            int degree = s[5];
             
             // type -> s[0] == 1: damage (-degree -> -s[5])
             // type -> s[0] == 2: heal (degree -> s[5])
